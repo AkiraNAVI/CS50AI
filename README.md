@@ -1,2 +1,7 @@
 # CS50 AI course
-Resourses for [CS50’s Introduction to AI with Python](https://cs50.harvard.edu/ai/)
+Recordings for my learning process.
+Resourses from [CS50’s Introduction to AI with Python](https://cs50.harvard.edu/ai/)
+
+# Reference and additional knowledge:
+https://github.com/PKUFlyingPig/cs50_ai
+https://github.com/wbsth/cs50ai
