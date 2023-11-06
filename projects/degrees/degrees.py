@@ -92,8 +92,76 @@ def shortest_path(source, target):
     If no possible path, returns None.
     """
 
-    # TODO
-    raise NotImplementedError
+    frontier = QueueFrontier()
+    explored = set()
+    frontier.add(Node(source, None, None))
+
+    while not frontier.empty():
+        node = frontier.remove()
+        explored.add(node.state)
+        neighbors = neighbors_for_person(node.state)
+
+        for neighbor in neighbors:
+            _, person_id = neighbor
+
+            # Found a solution
+            if person_id == target:
+                path = [neighbor]
+                while node.parent is not None:
+                    path.append(node.action)
+                    node = node.parent
+                path.reverse()
+                return path
+
+            # Add node to frontier
+            if person_id not in explored and not frontier.contains_state(person_id):
+                frontier.add(Node(person_id, node, neighbor))
+
+    return None
+
+    """
+    start = Node(state=source, parent=None, action=None)
+    frontier = QueueFrontier()
+    frontier.add(start)
+
+    explored = set()
+
+    while True:
+        if frontier.empty():
+            return None
+
+        node = frontier.remove()
+
+        if node.state == target:
+            solution = []
+
+            while node.parent is not None:
+                solution.append((node.action, node.state))
+                node = node.parent
+
+            solution.reverse()
+            return solution
+        
+        explored.add(node.state)
+
+        # Find neighbours
+        neighbours = neighbors_for_person(node.state)
+
+        # Add neighbours to frontier
+        for action, state in neighbours:
+            if not frontier.contains_state(state) and state not in explored:
+                child = Node(state=state, parent=node, action=action)
+                if child.state == target:
+                    solution = []
+
+                    while child.parent is not None:
+                        solution.append((child.action, child.state))
+                        child = child.parent
+
+                    solution.reverse()
+                    return solution
+                frontier.add(child)
+        """
 
 
 def person_id_for_name(name):
